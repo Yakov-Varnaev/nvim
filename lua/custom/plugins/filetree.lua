@@ -10,7 +10,7 @@ return {
     vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = 'Focus Neotree' })
     vim.keymap.set('n', '<leader>p', '<cmd>Neotree toggle<CR>', { desc = 'Toggle Neotree' })
     vim.keymap.set('n', '<leader>gs', '<cmd>Neotree float git_status<CR>', { desc = 'Git' })
-    vim.keymap.set('n', '<leader>gd', '<cmd>DiffviewOpen<cr>', { desc = 'Open Git diff' })
+    vim.keymap.set('n', 'gd', '<cmd>DiffviewOpen<cr>', { desc = 'Open Git diff' })
 
     require('neo-tree').setup {
       filesystem = {
