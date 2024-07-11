@@ -156,9 +156,11 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 7
 vim.opt.colorcolumn = '80'
 vim.wo.wrap = false
+
+vim.wo.foldmethod = 'indent'
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -521,6 +523,8 @@ require('lazy').setup({
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
+          --
+
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -555,7 +559,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        -- pyright = {},
+        pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -969,3 +973,5 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move line up' })
 vim.keymap.set('n', '<leader>ma', '<cmd>Telescope marks<cr>', { desc = 'Show marks' })
 
 vim.keymap.set('n', '<leader>Gdc', '<cmd>DiffviewClose<cr>', { desc = 'Close git diff view' })
+
+vim.keymap.set('n', '<leader>A', '<cmd>AerialToggle!<CR>')
