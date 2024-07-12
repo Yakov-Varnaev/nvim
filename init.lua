@@ -161,6 +161,7 @@ vim.opt.colorcolumn = '80'
 vim.wo.wrap = false
 
 vim.wo.foldmethod = 'indent'
+vim.wo.foldlevel = 99
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
