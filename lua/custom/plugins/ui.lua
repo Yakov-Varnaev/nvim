@@ -25,6 +25,7 @@
 --     c = { fg = colors.white },
 --   },
 -- }
+--
 
 return {
   {
@@ -57,21 +58,20 @@ return {
     'nvim-lualine/lualine.nvim',
     opts = {
       options = {
-        -- theme = bubbles_theme,
         theme = 'catppuccin',
         component_separators = '',
-        section_separators = { left = '', right = '' },
+        section_separators = { left = ' ', right = '' },
       },
       sections = {
-        lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
-        lualine_b = { 'filename', 'branch' },
+        lualine_a = { { 'mode' } },
+        lualine_b = { { 'filename', path = 1 } },
         lualine_c = {
-          '%=', --[[ add your center compoentnts here in place of this comment ]]
+          { 'branch' },
         },
         lualine_x = {},
         lualine_y = { 'filetype', 'progress' },
         lualine_z = {
-          { 'location', separator = { right = '' }, left_padding = 2 },
+          { 'location', separator = { left = '' }, left_padding = 2 },
         },
       },
       inactive_sections = {

@@ -976,3 +976,5 @@ vim.keymap.set('n', '<leader>ma', '<cmd>Telescope marks<cr>', { desc = 'Show mar
 vim.keymap.set('n', '<leader>Gdc', '<cmd>DiffviewClose<cr>', { desc = 'Close git diff view' })
 
 vim.keymap.set('n', '<leader>A', '<cmd>AerialToggle!<CR>')
+
+vim.opt.laststatus = 3
