@@ -12,7 +12,7 @@ return {
       require('neotest').setup {
         adapters = {
           require 'neotest-python' {
-            dap = { justMyCode = true },
+            dap = { justMyCode = false },
           },
           require 'neotest-go' {
             dap = { justMyCode = true },

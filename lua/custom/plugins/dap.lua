@@ -1,17 +1,8 @@
-vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointCondition', { text = '🧐', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointRejected', { text = '❌', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-vim.fn.sign_define('DapLogPoint', { text = '🔵', texthl = 'DapLogPoint', linehl = 'DapLogPoint', numhl = 'DapLogPoint' })
-vim.fn.sign_define('DapStopped', { text = '➡️', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
-
--- TODO: add signs without emoji
-if vim.g.have_nerd_font then
-  vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-  vim.fn.sign_define('DapBreakpointCondition', { text = '🧐', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-  vim.fn.sign_define('DapBreakpointRejected', { text = '❌', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-  vim.fn.sign_define('DapLogPoint', { text = '🔵', texthl = 'DapLogPoint', linehl = 'DapLogPoint', numhl = 'DapLogPoint' })
-  vim.fn.sign_define('DapStopped', { text = '➡️', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
-end
+vim.fn.sign_define('DapBreakpoint', { text = '◉', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointCondition', { text = '◉?', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointRejected', { text = '✘', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+vim.fn.sign_define('DapLogPoint', { text = 'Log', texthl = 'DapLogPoint', linehl = 'DapLogPoint', numhl = 'DapLogPoint' })
+vim.fn.sign_define('DapStopped', { text = '➔', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 
 return {
   {
