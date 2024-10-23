@@ -7,6 +7,7 @@ return {
     'MunifTanjim/nui.nvim',
   },
   config = function()
+    vim.keymap.set('n', '<M-r>', '<cmd>Neotree reveal<CR>', { desc = 'Reveal Current File' })
     vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = 'Focus Neotree' })
     vim.keymap.set('n', '<leader>p', '<cmd>Neotree toggle<CR>', { desc = 'Toggle Neotree' })
     vim.keymap.set('n', '<leader>gs', '<cmd>Neotree float git_status<CR>', { desc = 'Git' })

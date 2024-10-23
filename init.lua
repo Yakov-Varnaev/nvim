@@ -563,9 +563,16 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
         gopls = {},
-        pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = 'off',
+              },
+            },
+          },
+        },
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -598,7 +605,7 @@ require('lazy').setup({
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
+      require('mason').setup {}
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -642,10 +649,15 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = {}
+        local buffer_path = vim.fn.expand '%:p'
+        local disable_by_path = not not (
+          string.match(buffer_path, '/Users/yakovvarnaev/work/') or string.match(buffer_path, '/Users/yakovvarnaev/go/src/github.com/work')
+        )
+
         return {
           timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype] and not disable_by_path,
         }
       end,
       formatters_by_ft = {
@@ -656,13 +668,19 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         javascript = { { 'prettierd', 'prettier' } },
+        html = { 'prettier' },
       },
       formatters = {
-        black = {
+        ruff = {
+          disable = true,
           condition = function(ctx)
             local buffer_path = vim.fn.expand '%:p'
-            local disable_by_path = not not (string.match(buffer_path, '/work/') or string.match(buffer_path, '/Users/yakovvarnaev/go/src/github.com/work'))
-            return not disable_by_path
+            local disable_by_path = not not (
+              string.match(buffer_path, '/Users/yakovvarnaev/work/') or string.match(buffer_path, '/Users/yakovvarnaev/go/src/github.com/work')
+            )
+            print(buffer_path)
+            print(disable_by_path)
+            return false
           end,
         },
       },
