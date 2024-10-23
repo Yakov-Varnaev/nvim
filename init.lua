@@ -238,7 +238,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -562,8 +562,15 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      --
+
+      local vue_ls_path = '/Users/yakovvarnaev/.local/share/nvim/mason/packages/vue-language-server'
       local servers = {
+        -- golang
         gopls = {},
+        delve = {},
+
+        -- python
         pyright = {
           settings = {
             python = {
@@ -573,16 +580,43 @@ require('lazy').setup({
             },
           },
         },
+        -- ruff_lsp = {},
+        debugpy = {},
+
+        -- rust
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
-        --
+        -- But for many setups, the LSP (`ts_ls`) will work just fine
+        -- frontend
+        ts_ls = {
+          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = vue_ls_path,
+                languages = { 'vue' },
+              },
+            },
+          },
+        },
+        -- volar = {
+        --   init_options = {
+        --     vue = {
+        --       hybridMode = false,
+        --     },
+        --   },
+        -- },
+        volar = {
+          filetypes = { 'vue' }, -- skip takeover mode for now in favor of typescript-tools simultaneous server - https://github.com/johnsoncodehk/volar/discussions/471
+        },
+        emmet_language_server = {},
 
+        -- lua
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -612,6 +646,8 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'prettier',
+        'gofumpt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -667,22 +703,25 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        javascript = { { 'prettierd', 'prettier' } },
+        javascript = { 'prettierd', 'prettier' },
+        vue = { 'prettier' },
         html = { 'prettier' },
+        json = { 'prettier' },
+        jsonc = { 'prettier' },
       },
       formatters = {
-        ruff = {
-          disable = true,
-          condition = function(ctx)
-            local buffer_path = vim.fn.expand '%:p'
-            local disable_by_path = not not (
-              string.match(buffer_path, '/Users/yakovvarnaev/work/') or string.match(buffer_path, '/Users/yakovvarnaev/go/src/github.com/work')
-            )
-            print(buffer_path)
-            print(disable_by_path)
-            return false
-          end,
-        },
+        -- ruff = {
+        --   disable = true,
+        --   condition = function(ctx)
+        --     local buffer_path = vim.fn.expand '%:p'
+        --     local disable_by_path = not not (
+        --       string.match(buffer_path, '/Users/yakovvarnaev/work/') or string.match(buffer_path, '/Users/yakovvarnaev/go/src/github.com/work')
+        --     )
+        --     print(buffer_path)
+        --     print(disable_by_path)
+        --     return false
+        --   end,
+        -- },
       },
     },
     -- config = function()
